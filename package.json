@@ -1,0 +1,24 @@
+{
+  "name": "foxprocess",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zelear/foxprocess.git"
+  },
+  "author": "ZelearFox",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zelear/foxprocess/issues"
+  },
+  "homepage": "https://github.com/zelear/foxprocess#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-os-utils": "^1.3.7",
+    "prom-client": "^15.1.3"
+  }
+}
