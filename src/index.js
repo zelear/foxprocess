@@ -14,7 +14,7 @@ const memoryUsageMb = new promClient.Gauge({
     help: 'Использование ОЗУ в MB'
 });
 const memoryUsagePer = new promClient.Gauge({
-    name: 'memory_total_percentage',
+    name: 'memory_usage_percentage',
     help: 'Использование ОЗУ в процентах'
 });
 const memoryTotalMb = new promClient.Gauge({
