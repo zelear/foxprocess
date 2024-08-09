@@ -7,7 +7,7 @@ const { readFileSync, existsSync, writeFileSync } = require('fs');
 const app = express();
 
 const appID = getID();
-const port = 61300;
+const port = process.env.SERVER_PORT || 61300;
 
 const memoryUsageMb = new promClient.Gauge({
     name: 'memory_usage_mb',
