@@ -2,12 +2,14 @@ const promClient = require('prom-client');
 const express = require('express');
 const os = require('node-os-utils');
 const { randomUUID } = require('crypto');
-const { readFileSync, existsSync, writeFileSync } = require('fs');
+const { readFileSync, existsSync, writeFileSync, mkdirSync } = require('fs');
 
 const app = express();
 
 const appID = getID();
-const port = process.env.SERVER_PORT || 61300;
+const defaults = getDefaults();
+const appName = process.env.APP_NAME || defaults.app_name;
+const port = process.env.SERVER_PORT || defaults.port;
 
 const memoryUsageMb = new promClient.Gauge({
     name: 'memory_usage_mb',
@@ -51,6 +53,7 @@ const networkOutputMb = new promClient.Gauge({
 });
 
 promClient.register.setDefaultLabels({
+    app_name: appName,
     app_id: appID
 });
 
@@ -109,14 +112,18 @@ async function updateStat() {
 };
 
 function getID() {
-    if (existsSync('data.json')) {
-        const { id } = JSON.parse(readFileSync('data.json', 'utf-8'));
+    if (existsSync('data/data.json')) {
+        const { id } = JSON.parse(readFileSync('data/data.json', 'utf-8'));
         return id;
     } else {
         const id = randomUUID();
-        writeFileSync('data.json', JSON.stringify({ id }));
+        writeFileSync('data/data.json', JSON.stringify({ id }));
         return id;
     }
+};
+
+function getDefaults() {
+    return JSON.parse(readFileSync('data/defaults.json', 'utf-8'));
 };
 
 process.on('multipleResolves', err => console.error(err));
