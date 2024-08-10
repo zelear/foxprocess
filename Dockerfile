@@ -7,5 +7,6 @@ COPY package*.json ./
 RUN npm ci
 
 COPY src ./src
+COPY data ./data
 
 CMD ["npm", "start"]
